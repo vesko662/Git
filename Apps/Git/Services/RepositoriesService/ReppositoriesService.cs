@@ -45,5 +45,8 @@ namespace Git.Services.RepositoriesService
                 Id = s.Id
             })
             .ToList();
+
+        public Repository GetRepository(string repId)
+        => context.Repositories.Find(repId);
     }
 }
