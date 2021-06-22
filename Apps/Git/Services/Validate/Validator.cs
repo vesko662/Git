@@ -14,7 +14,7 @@ namespace Git.Services.Validate
         {
             if (repositoriesCreate.Description.Length < defaultMinLenght)
             {
-                throw new InvalidOperationException($"Commit description must be above {repositoriesCreate} characters long!");
+                throw new InvalidOperationException($"Commit description must be above {defaultMinLenght} characters long!");
             }
         }
 

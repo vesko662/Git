@@ -34,8 +34,6 @@ namespace Git.Services.RepositoriesService
         public IEnumerable<RepositoriesViewModel> GetAllPublicRepositories()
         => context.Repositories
             .Where(x => x.IsPublic == true)
-            .Include(x=>x.Owner)
-            .Include(x=>x.Commits)
             .Select(s => new RepositoriesViewModel()
             {
                 Name = s.Name,

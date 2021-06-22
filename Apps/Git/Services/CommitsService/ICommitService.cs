@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Git.Data.Models;
+using Git.ViewModels.Commits;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Git.Services.CommitsService
 {
@@ -8,6 +8,10 @@ namespace Git.Services.CommitsService
     {
         void CreateCommit(string description,string repId, string userId);
 
+        Commit GetCommit(string commitId);
 
+        IEnumerable<CommitViewModel> GetAllCommits();
+
+        void DeleteCommit(string commitId,string userId);
     }
 }

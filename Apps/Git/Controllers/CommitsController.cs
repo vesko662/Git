@@ -24,7 +24,7 @@ namespace Git.Controllers
         }
         public HttpResponse All()
         {
-            return View();
+            return View(commitService.GetAllCommits());
         }
 
         public HttpResponse Create(string Id)
@@ -53,9 +53,12 @@ namespace Git.Controllers
             return Redirect("/Repositories/All");
         }
 
-        public HttpResponse Delete()
+        public HttpResponse Delete(string id)
         {
-            return Redirect("");
+
+            commitService.DeleteCommit(id,this.GetUserId());
+
+            return Redirect("/Commits/All");
         }
     }
 }
