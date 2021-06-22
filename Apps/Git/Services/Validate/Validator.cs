@@ -12,7 +12,7 @@ namespace Git.Services.Validate
     {
         public void ValidateCommit(CommitsCreateFormModel repositoriesCreate)
         {
-            if (repositoriesCreate.Description.Length < defaultMinLenght)
+            if (string.IsNullOrWhiteSpace(repositoriesCreate.Description) || repositoriesCreate.Description.Length < defaultMinLenght)
             {
                 throw new InvalidOperationException($"Commit description must be above {defaultMinLenght} characters long!");
             }
@@ -20,7 +20,7 @@ namespace Git.Services.Validate
 
         public void ValidateRepository(RepositoriesCreateViewModel repositoriesCreate)
         {
-            if (repositoriesCreate.Name.Length < defaultMinLenght || repositoriesCreate.Name.Length > defaultMaxLenght)
+            if (string.IsNullOrWhiteSpace(repositoriesCreate.Name) || repositoriesCreate.Name.Length < defaultMinLenght || repositoriesCreate.Name.Length > defaultMaxLenght)
             {
                 throw new InvalidOperationException($"Repository name must be between {repositoriesCreate} and {defaultMaxLenght} characters long!");
             }
@@ -28,18 +28,18 @@ namespace Git.Services.Validate
 
         public void ValidateUser(RegisterUserFormModel registerUser)
         {
-            if (registerUser.Username.Length<defaultMinLenght|| registerUser.Username.Length>defaultMaxLenght )
+            if (string.IsNullOrWhiteSpace(registerUser.Username) || registerUser.Username.Length<defaultMinLenght|| registerUser.Username.Length>defaultMaxLenght )
             {
                 throw new InvalidOperationException($"Username must be between {defaultMinLenght} and {defaultMaxLenght} characters long!");
             }
 
-            if (!Regex.IsMatch(registerUser.Email,UserEmailRegularExpression))
+            if ( !Regex.IsMatch(registerUser.Email,UserEmailRegularExpression))
             {
                 throw new InvalidOperationException($"Email is not valid!");
 
             }
 
-            if (registerUser.Password.Length < passwordMinLenght || registerUser.Password.Length > defaultMaxLenght)
+            if (string.IsNullOrWhiteSpace(registerUser.Password) || registerUser.Password.Length < passwordMinLenght || registerUser.Password.Length > defaultMaxLenght)
             {
                 throw new InvalidOperationException($"Password must be between {passwordMinLenght} and {defaultMaxLenght} characters long!");
             }
