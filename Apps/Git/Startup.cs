@@ -11,6 +11,7 @@
     using Git.Services.UserService;
     using Git.Services.PassworHasher;
     using Git.Services.RepositoriesService;
+    using Git.Services.CommitsService;
 
     public class Startup : IMvcApplication
     {
@@ -26,6 +27,7 @@
             serviceCollection.Add<IPasswordHasher, PasswordHasher>();
             serviceCollection.CreateInstance(typeof(GitDbContext));
             serviceCollection.Add<IRepositoriesService, ReppositoriesService>();
+            serviceCollection.Add<ICommitService, CommitService>();
         }
     }
 }

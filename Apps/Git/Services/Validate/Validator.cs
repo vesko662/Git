@@ -1,4 +1,5 @@
-﻿using Git.ViewModels.Repositories;
+﻿using Git.ViewModels.Commits;
+using Git.ViewModels.Repositories;
 using Git.ViewModels.Users;
 using System;
 using System.Text.RegularExpressions;
@@ -9,11 +10,19 @@ namespace Git.Services.Validate
 {
     public class Validator : IValidator
     {
+        public void ValidateCommit(CommitsCreateFormModel repositoriesCreate)
+        {
+            if (repositoriesCreate.Description.Length < defaultMinLenght)
+            {
+                throw new InvalidOperationException($"Commit description must be above {repositoriesCreate} characters long!");
+            }
+        }
+
         public void ValidateRepository(RepositoriesCreateViewModel repositoriesCreate)
         {
             if (repositoriesCreate.Name.Length < defaultMinLenght || repositoriesCreate.Name.Length > defaultMaxLenght)
             {
-                throw new InvalidOperationException($"Repository name must be between {defaultMinLenght} and {defaultMaxLenght} characters long!");
+                throw new InvalidOperationException($"Repository name must be between {repositoriesCreate} and {defaultMaxLenght} characters long!");
             }
         }
 
