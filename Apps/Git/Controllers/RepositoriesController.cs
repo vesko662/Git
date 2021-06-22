@@ -21,11 +21,24 @@ namespace Git.Controllers
 
             return View(repositoriesService.GetAllPublicRepositories());
         }
-        public HttpResponse Create() => View();
+        public HttpResponse Create()
+        {
+            if (this.IsUserSignedIn() != true)
+            {
+                return Redirect("/Users/Login");
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public HttpResponse Create(RepositoriesCreateViewModel repositoriesCreate)
         {
+            if (this.IsUserSignedIn() != true)
+            {
+                return Redirect("/Users/Login");
+            }
+
             try
             {
                 validator.ValidateRepository(repositoriesCreate);

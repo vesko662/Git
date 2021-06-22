@@ -19,13 +19,27 @@ namespace Git.Controllers
         }
 
 
-        public HttpResponse Login() => View();
+        public HttpResponse Login()
+        {
+            if (this.IsUserSignedIn())
+            {
+                return Redirect("/Repositories/All");
+            }
+
+            return View();
+        }
+
         [HttpPost]
         public HttpResponse Login(LoginUserFormModel loginUser)
         {
+            if (this.IsUserSignedIn())
+            {
+                return Redirect("/Repositories/All");
+            }
+
             var id = usersService.GetUserId(loginUser.Username, loginUser.Password);
 
-            if (id==null)
+            if (id == null)
             {
                 return Error("Invalid username or passwor!");
             }
@@ -35,11 +49,24 @@ namespace Git.Controllers
             return Redirect("/Repositories/All");
         }
 
-        public HttpResponse Register() => View();
+        public HttpResponse Register()
+        {
+            if (this.IsUserSignedIn())
+            {
+                return Redirect("/Repositories/All");
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public HttpResponse Register(RegisterUserFormModel registerUser)
         {
+            if (this.IsUserSignedIn())
+            {
+                return Redirect("/Repositories/All");
+            }
+
             try
             {
                 validator.ValidateUser(registerUser);
@@ -55,6 +82,11 @@ namespace Git.Controllers
 
         public HttpResponse Logout()
         {
+            if (this.IsUserSignedIn() != true)
+            {
+                return Redirect("/Users/Login");
+            }
+
             this.SignOut();
             return Redirect("/");
         }

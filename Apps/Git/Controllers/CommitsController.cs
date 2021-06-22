@@ -24,11 +24,21 @@ namespace Git.Controllers
         }
         public HttpResponse All()
         {
+            if (this.IsUserSignedIn() != true)
+            {
+                return Redirect("/Users/Login");
+            }
+
             return View(commitService.GetAllCommits());
         }
 
         public HttpResponse Create(string Id)
         {
+            if (this.IsUserSignedIn() != true)
+            {
+                return Redirect("/Users/Login");
+            }
+
             var repository = repositoriesService.GetRepository(Id);
 
             var repDetails = new RepositoryDetailsViewModel() { Name = repository.Name, Id = repository.Id };
@@ -38,6 +48,11 @@ namespace Git.Controllers
         [HttpPost]
         public HttpResponse Create(CommitsCreateFormModel commitsCreate)
         {
+            if (this.IsUserSignedIn() != true)
+            {
+                return Redirect("/Users/Login");
+            }
+
             try
             {
                 validator.ValidateCommit(commitsCreate);
@@ -55,6 +70,10 @@ namespace Git.Controllers
 
         public HttpResponse Delete(string id)
         {
+            if (this.IsUserSignedIn() != true)
+            {
+                return Redirect("/Users/Login");
+            }
 
             commitService.DeleteCommit(id,this.GetUserId());
 
